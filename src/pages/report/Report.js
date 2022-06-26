@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { VisibilityOffOutlined, VisibilityOutlined } from "@mui/icons-material";
 import {
   Table,
@@ -19,22 +19,43 @@ import {
   IconButton,
 } from "@mui/material";
 import { teal } from "@mui/material/colors";
+import { useLocation, NavLink } from "react-router-dom";
+import Axios from "../../shared/Axios";
 
 const Report = () => {
+  const location = useLocation();
+  const { lotteryId } = location.state;
+  console.log(lotteryId);
+
+  const [report, setReport] = useState([]);
+
+  useEffect(() => {
+    Axios.get(`/reports/agent/${lotteryId}`, {
+      headers: {
+        authorization: `Bearer ` + localStorage.getItem("access-token"),
+      },
+    }).then((res) => {
+      setReport(res.data.resReport);
+    });
+  }, []);
   return (
     <Stack>
       {/* <TableContainer component={Paper} sx={{ padding: "1px" }}> */}
-      <Table sx={{ minWidth: 400 }} size="small" aria-label="a dense table">
-        <TableHead sx={{ bgcolor: teal[700] }}>
+      <Table
+        // sx={{ minWidth: "max-content" }}
+        size="small"
+        aria-label="a dense table"
+      >
+        <TableHead sx={{ bgcolor: "success.light" }}>
           <TableRow>
-            <TableCell sx={{ fontWeight: "bold" }}>Item</TableCell>
-            <TableCell sx={{ fontWeight: "bold" }}>Price</TableCell>
-            <TableCell sx={{ fontWeight: "bold" }}>Qty</TableCell>
-            <TableCell sx={{ fontWeight: "bold" }}>Order</TableCell>
+            <TableCell sx={{ fontWeight: "bold" }}>User Name</TableCell>
+            <TableCell sx={{ fontWeight: "bold" }}>Bet</TableCell>
+            <TableCell sx={{ fontWeight: "bold" }}>Comission</TableCell>
+            <TableCell sx={{ fontWeight: "bold" }}>Win/Lose</TableCell>
             <TableCell sx={{ fontWeight: "bold" }}>More</TableCell>
           </TableRow>
         </TableHead>
-        {/* <TableBody sx={{ overflow: "scroll" }}>
+        <TableBody sx={{ overflow: "scroll" }}>
           {report.map((rp) => {
             return (
               <TableRow>
@@ -45,8 +66,8 @@ const Report = () => {
                 <TableCell>
                   <IconButton color="success">
                     <NavLink
-                      to={`/report/master/agents/${lotteryId}`}
-                      state={{ lotteryId: lotteryId }}
+                      to={`/reports/agent/${rp.userId._id}/calls/${lotteryId}`}
+                      // state={{ lotteryId: lotteryId }}
                     >
                       <VisibilityOutlined />
                     </NavLink>
@@ -55,7 +76,7 @@ const Report = () => {
               </TableRow>
             );
           })}
-        </TableBody> */}
+        </TableBody>
       </Table>
       {/* </TableContainer> */}
     </Stack>

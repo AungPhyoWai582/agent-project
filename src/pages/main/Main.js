@@ -1,6 +1,7 @@
 import React from "react";
 import { Stack, Button, Typography } from "@mui/material";
 import { NavLink } from "react-router-dom";
+import Lottery from "../lottery/Lottery";
 // import MuiAppBar from "../../../components/MuiAppbar";
 // import MuiAppBar from "../../components/MuiAppbar";
 
@@ -8,7 +9,7 @@ const Main = () => {
   return (
     <div>
       {/* <MuiAppBar /> */}
-      <Stack marginTop={5} padding={5} spacing={2}>
+      {/* <Stack marginTop={5} padding={5} spacing={2}>
         <NavLink to="/lottery" style={{ textDecoration: "none" }}>
           <Stack
             component={"div"}
@@ -47,7 +48,9 @@ const Main = () => {
             </Typography>
           </Stack>
         </NavLink>
-      </Stack>
+      </Stack> */}
+
+      <Lottery />
     </div>
   );
 };
