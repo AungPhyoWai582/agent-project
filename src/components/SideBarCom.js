@@ -70,6 +70,7 @@ const SideBarCom = ({ setHandleOpen, handdleopen, name, setAuthUser }) => {
                 <ListItemText primary="Lotery" />
               </ListItem>
             </NavLink>
+
             <NavLink
               style={{ textDecoration: "none" }}
               to="/account_info"

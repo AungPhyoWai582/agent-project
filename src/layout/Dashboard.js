@@ -11,6 +11,7 @@ import AccountInfo from "../pages/accountInfo/AccountInfo";
 import Login from "../pages/login/Login";
 import ReportCalls from "../pages/report/ReportCalls";
 import CallDetail from "../pages/report/CallDetail";
+import Lager from "../pages/lager/Lager";
 
 const Dashboard = () => {
   const [authUser, setAuthUser] = useState({
@@ -35,6 +36,7 @@ const Dashboard = () => {
       <Route path="/*" element={<Navigate to="/lottery" replace />} />
       {/* <Route path="/main" element={<Main />} /> */}
       <Route path="/lottery" element={<Lottery />} />
+      <Route path="/lottery/lager/:lotteryId" element={<Lager />} />
       <Route path="/lottery/bet/:lotteryId" element={<Bet />} />
       <Route path="/reports/agent/:lotteryId" element={<Report />} />
       <Route
