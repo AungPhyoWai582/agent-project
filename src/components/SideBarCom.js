@@ -1,4 +1,4 @@
-import { AccountCircle } from "@mui/icons-material";
+import { AccountCircle, ListAlt } from "@mui/icons-material";
 import {
   Box,
   Divider,
@@ -68,6 +68,19 @@ const SideBarCom = ({ setHandleOpen, handdleopen, name, setAuthUser }) => {
                   <NoteAddIcon />
                 </ListItemIcon>
                 <ListItemText primary="Lotery" />
+              </ListItem>
+            </NavLink>
+
+            <NavLink
+              style={{ textDecoration: "none" }}
+              to="/view"
+              onClick={() => setHandleOpen(false)}
+            >
+              <ListItem sx={{ ":hover": { bgcolor: teal[100] } }}>
+                <ListItemIcon>
+                  <ListAlt />
+                </ListItemIcon>
+                <ListItemText primary="View" />
               </ListItem>
             </NavLink>
 
