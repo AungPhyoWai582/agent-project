@@ -48,9 +48,9 @@ const Lager = () => {
       boxShadow={1}
     >
       <Stack direction={"row"} justifyContent={"space-between"} padding={2}>
-        <Stack direction={"row"}>
+        {/* <Stack direction={"row"}>
           <Typography>{Lager.info.id}</Typography>
-        </Stack>
+        </Stack> */}
         <Stack direction={"row"}>
           <Typography>{`${date.getDate()}/${date.getMonth()}/${date.getFullYear()} ${
             Lager.info.time

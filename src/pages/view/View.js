@@ -1,8 +1,7 @@
 import { FormControlLabel, Stack, TextField, Typography } from "@mui/material";
-import { DatePicker } from "@syncfusion/ej2-react-calendars";
+import { teal } from "@mui/material/colors";
 import React from "react";
-import ReactDatePicker from "react-datepicker";
-// import DatePicker from "@date-io/date-fns";
+import { NavLink } from "react-router-dom";
 const View = () => {
   return (
     <Stack
@@ -17,52 +16,40 @@ const View = () => {
         <TextField type={"date"} />
       </Stack>
       <Stack direction={"column"} spacing={1}>
-        <Stack
-          direction={"row"}
-          justifyContent={"space-between"}
-          sx={{ borderRadius: 2 }}
-          boxShadow={1}
-          padding={1}
-          borderLeft={3}
-          borderRight={3}
-          borderColor={"success.light"}
+        <NavLink
+          to="/view/lager-report"
+          style={{ textDecoration: "none", color: "inherit" }}
         >
-          <Stack direction={"column"}>
-            <Typography fontSize={"small"}>28/6/2022 AM</Typography>
-            <Typography fontSize={"small"}>128837</Typography>
+          <Stack
+            direction={"row"}
+            justifyContent={"space-between"}
+            sx={{
+              borderRadius: 2,
+              ":hover": {
+                cursor: "pointer",
+                bgcolor: teal[100],
+              },
+            }}
+            boxShadow={1}
+            padding={1}
+            borderLeft={3}
+            borderRight={3}
+            borderColor={"success.light"}
+          >
+            <Stack direction={"column"}>
+              <Typography fontSize={"small"}>28/6/2022 AM</Typography>
+              <Typography fontSize={"small"}>128837</Typography>
+            </Stack>
+            <Stack direction={"column"}>
+              <Typography fontSize={"small"}>tha</Typography>
+              <Typography fontSize={"small"}>number : 59</Typography>
+            </Stack>
+            <Stack direction={"column"}>
+              <Typography fontSize={"small"}>Total : 590000</Typography>
+              <Typography fontSize={"small"}>Com : 59000</Typography>
+            </Stack>
           </Stack>
-          <Stack direction={"column"}>
-            <Typography fontSize={"small"}>tha</Typography>
-            <Typography fontSize={"small"}>number : 59</Typography>
-          </Stack>
-          <Stack direction={"column"}>
-            <Typography fontSize={"small"}>Total : 590000</Typography>
-            <Typography fontSize={"small"}>Com : 59000</Typography>
-          </Stack>
-        </Stack>
-        <Stack
-          direction={"row"}
-          justifyContent={"space-between"}
-          sx={{ borderRadius: 2 }}
-          boxShadow={1}
-          padding={1}
-          borderLeft={3}
-          borderRight={3}
-          borderColor={"error.light"}
-        >
-          <Stack direction={"column"}>
-            <Typography fontSize={"small"}>28/6/2022 AM</Typography>
-            <Typography fontSize={"small"}>128837</Typography>
-          </Stack>
-          <Stack direction={"column"}>
-            <Typography fontSize={"small"}>tha</Typography>
-            <Typography fontSize={"small"}>number : 59</Typography>
-          </Stack>
-          <Stack direction={"column"}>
-            <Typography fontSize={"small"}>Total : 590000</Typography>
-            <Typography fontSize={"small"}>Com : 59000</Typography>
-          </Stack>
-        </Stack>
+        </NavLink>
       </Stack>
     </Stack>
   );

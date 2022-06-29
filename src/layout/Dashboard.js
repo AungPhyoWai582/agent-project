@@ -13,6 +13,8 @@ import ReportCalls from "../pages/report/ReportCalls";
 import CallDetail from "../pages/report/CallDetail";
 import Lager from "../pages/lager/Lager";
 import View from "../pages/view/View";
+import LagerReport from "../pages/view/LagerReport";
+import CallsList from "../pages/calls/CallsList";
 
 const Dashboard = () => {
   const [authUser, setAuthUser] = useState({
@@ -38,8 +40,10 @@ const Dashboard = () => {
       {/* <Route path="/main" element={<Main />} /> */}
       <Route path="/lottery" element={<Lottery />} />
       <Route path="/view" element={<View />} />
+      <Route path="/view/lager-report" element={<LagerReport />} />
 
       <Route path="/lottery/bet/:lotteryId" element={<Bet />} />
+      <Route path="/lottery/calls/:lotteryId" element={<CallsList />} />
       <Route path="/lottery/lager/:lotteryId" element={<Lager />} />
 
       <Route path="/reports/agent/:lotteryId" element={<Report />} />

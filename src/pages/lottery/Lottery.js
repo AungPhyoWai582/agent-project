@@ -1,6 +1,7 @@
 import {
   AddSharp,
   Delete,
+  List,
   MenuBook,
   Settings,
   Star,
@@ -75,6 +76,11 @@ const Lottery = () => {
                 <NavLink to={`/lottery/lager/${l._id}`}>
                   <IconButton size="small" sx={{ color: "black" }}>
                     <Star fontSize="small" />
+                  </IconButton>
+                </NavLink>
+                <NavLink to={`/lottery/calls/${l._id}`}>
+                  <IconButton size="small" sx={{ color: "black" }}>
+                    <List fontSize="small" />
                   </IconButton>
                 </NavLink>
                 <NavLink to={`/lottery/bet/${l._id}`}>
