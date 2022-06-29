@@ -40,8 +40,25 @@ const Bet = () => {
 
   const choice = (e) => {
     e.preventDefault();
-    setCall({ ...call, numbers: [...call.numbers, onchange] });
-    setOnchange({ number: "", amount: onchange.amount });
+
+    if (
+      // onchange.number === "1" ||
+      // onchange.number === "2" ||
+      // onchange.number === "3" ||
+      // onchange.number === "4" ||
+      // onchange.number === "5" ||
+      // onchange.number === "6" ||
+      // onchange.number === "7" ||
+      // onchange.number === "8" ||
+      // onchange.number === "9" ||
+      // onchange.number === "0"
+      onchange.number.length <= 2
+    ) {
+      setCall({ ...call, numbers: [...call.numbers, onchange] });
+      setOnchange({ number: "", amount: onchange.amount });
+    } else {
+      console.log("error");
+    }
   };
 
   const bet = (e) => {

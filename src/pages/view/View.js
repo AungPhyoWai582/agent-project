@@ -9,7 +9,8 @@ const View = () => {
       margin={{ md: "auto" }}
       //   component={"table"}
       boxShadow={1}
-      padding={1}
+      // padding={1}
+      // marginX={0}
     >
       <Stack direction={"row"} spacing={1} padding={2}>
         <TextField type={"date"} />

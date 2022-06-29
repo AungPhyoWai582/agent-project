@@ -73,7 +73,10 @@ const Dashboard = () => {
           <Route path="/*" element={<Navigate to="/login" replace />} />
         </Routes>
       ) : (
-        <Grid container>
+        <Grid
+          container
+          // overflow={"hidden"}
+        >
           <Grid item xs={12} margin={{ md: 0 }}>
             <AppTopbar
               // name={"nnz"}
@@ -81,7 +84,7 @@ const Dashboard = () => {
               setAuthUser={setAuthUser}
             />
           </Grid>
-          <Grid item xs={12} padding={{ xs: 0, md: 1 }}>
+          <Grid item xs={12} padding={{ xs: 0, md: 0 }}>
             {routes}
           </Grid>
         </Grid>

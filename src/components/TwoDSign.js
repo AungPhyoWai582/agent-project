@@ -27,8 +27,16 @@ const TwoDSign = (e) => {
         // label="Age"
       >
         <MenuItem value={age}>ဒဲ့</MenuItem>
-        <MenuItem value={age}>R</MenuItem>
-        <MenuItem value={age}>ပတ်</MenuItem>
+        <MenuItem value={age}>အာ</MenuItem>
+        <MenuItem value={age}>ခွေ</MenuItem>
+        <MenuItem value={age}>ထိတ်ပိတ်</MenuItem>
+        <MenuItem value={age}>နောက်ပိတ်</MenuItem>
+        <MenuItem value={age}>ခွေ</MenuItem>
+        <MenuItem value={age}>ခွေ</MenuItem>
+        <MenuItem value={age}>ခွေ</MenuItem>
+        <MenuItem value={age}>ခွေ</MenuItem>
+        <MenuItem value={age}>ခွေ</MenuItem>
+        <MenuItem value={age}>ခွေ</MenuItem>
         <MenuItem value={age}>ခွေ</MenuItem>
       </Select>
     </FormControl>
