@@ -53,7 +53,7 @@ const LagerReport = () => {
 
           <Typography fontWeight={"bold"}>{totalAmount}</Typography>
         </Stack>
-        <Stack direction={"column"} padding={2}>
+        <Stack direction={"column"}>
           {call &&
             call
               .sort((a, b) => b.amount - a.amount)
@@ -68,7 +68,12 @@ const LagerReport = () => {
                   <Typography fontWeight={500} fontSize={14}>
                     {c.number}
                   </Typography>
-                  <Typography fontWeight={700} color={"green"} fontSize={14}>
+                  <Typography
+                    fontWeight={700}
+                    color={"green"}
+                    fontSize={14}
+                    align={"left"}
+                  >
                     {c.amount}
                   </Typography>
                 </Stack>
@@ -97,12 +102,12 @@ const LagerReport = () => {
             paddingRight={1}
             borderRadius={1}
           >
-            <Stack direction={"row"} justifyContent="space-between">
-              <Typography fontWeight={"bold"} fontSize={14}>
-                {lcal._id}
-              </Typography>
-              <Typography fontWeight={"bold"} fontSize={14}>
+            <Stack direction={"row"} justifyContent={"space-between"}>
+              <Typography fontWeight={"bold"} fontSize={12}>
                 {lcal.callname}
+              </Typography>
+              <Typography fontWeight={"bold"} fontSize={12}>
+                Total {lcal.totalAmount}
               </Typography>
             </Stack>
             <Stack bgcolor="white" padding={1} maxHeight={200} overflow="auto">
@@ -124,9 +129,9 @@ const LagerReport = () => {
                 </Stack>
               ))}
             </Stack>
-            <Stack direction={"row"} justifyContent={"flex-end"}>
-              <Typography fontWeight={"bold"} fontSize={14}>
-                Total {lcal.totalAmount}
+            <Stack direction={"row"} justifyContent="space-between">
+              <Typography fontWeight={"bold"} fontSize={12}>
+                {lcal._id}
               </Typography>
             </Stack>
           </Box>

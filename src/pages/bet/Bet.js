@@ -17,9 +17,9 @@ import TwoDSign from "../../components/TwoDSign";
 import Axios from "../../shared/Axios";
 // import { content } from "../../components/TwoDSign";
 
-const Bet = ({ content }) => {
-  const choseFun = useContext(content);
-  console.log(choseFun);
+const Bet = ({}) => {
+  // const choseFun = useContext(content);
+  // console.log(choseFun);
   const { lotteryId } = useParams();
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
