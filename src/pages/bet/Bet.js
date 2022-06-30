@@ -8,18 +8,24 @@ import {
   Typography,
 } from "@mui/material";
 import { green, red } from "@mui/material/colors";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
 import BetButtonCom from "../../components/BetButtonCom";
 import BetCom from "../../components/BetCom";
 import BetListCom from "../../components/BetListCom";
 import TwoDSign from "../../components/TwoDSign";
 import Axios from "../../shared/Axios";
+// import { content } from "../../components/TwoDSign";
 
-const Bet = () => {
+const Bet = ({ content }) => {
+  const choseFun = useContext(content);
+  console.log(choseFun);
   const { lotteryId } = useParams();
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
+
+  //For twoD sign state
+  const [age, setAge] = useState([]);
 
   const [call, setCall] = useState({
     callname: "",
@@ -148,6 +154,7 @@ const Bet = () => {
           onChange={onChangeHandler}
           label={"နံပါတ်"}
         />
+
         <TwoDSign />
         <BetCom
           name="amount"

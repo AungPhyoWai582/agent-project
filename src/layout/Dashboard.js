@@ -40,7 +40,7 @@ const Dashboard = () => {
       {/* <Route path="/main" element={<Main />} /> */}
       <Route path="/lottery" element={<Lottery />} />
       <Route path="/view" element={<View />} />
-      <Route path="/view/lager-report" element={<LagerReport />} />
+      <Route path="/view/lager/:lotteryId" element={<LagerReport />} />
 
       <Route path="/lottery/bet/:lotteryId" element={<Bet />} />
       <Route path="/lottery/calls/:lotteryId" element={<CallsList />} />
@@ -73,10 +73,7 @@ const Dashboard = () => {
           <Route path="/*" element={<Navigate to="/login" replace />} />
         </Routes>
       ) : (
-        <Grid
-          container
-          // overflow={"hidden"}
-        >
+        <Grid container overflow={"hidden"}>
           <Grid item xs={12} margin={{ md: 0 }}>
             <AppTopbar
               // name={"nnz"}
