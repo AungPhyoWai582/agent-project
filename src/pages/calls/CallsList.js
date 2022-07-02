@@ -1,6 +1,7 @@
-import { Delete, Edit } from "@mui/icons-material";
+import { Delete, Edit, ExpandLess, ExpandMore } from "@mui/icons-material";
 import {
   Box,
+  Collapse,
   IconButton,
   Stack,
   Typography,
@@ -10,6 +11,8 @@ import { grey } from "@mui/material/colors";
 import react, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Axios from "../../shared/Axios";
+import CallComponent from "./CallComponent";
+import CallListComponent from "./CallListComponent";
 
 const CallsList = () => {
   const { lotteryId } = useParams();
@@ -22,6 +25,14 @@ const CallsList = () => {
     });
   }, []);
 
+  const [subopen, setSubopen] = useState({
+    key: null,
+    checked: null,
+  });
+  const subMember = (e, key) => {
+    setSubopen({ key: key, checked: !subopen.checked });
+  };
+  console.log(subopen);
   return (
     <Stack
       width={{ xs: "100%", md: "50%" }}
@@ -41,36 +52,42 @@ const CallsList = () => {
           paddingRight={1}
           borderRadius={1}
         >
-          <Stack direction={"row"} justifyContent="space-between">
-            <Typography>{cal._id}</Typography>
-            <Typography>{cal.callname}</Typography>
-            <Stack direction={"row"}>
-              <IconButton size="small">
-                <Edit fontSize="small" />
-              </IconButton>
-              <IconButton size="small">
-                <Delete fontSize="small" />
-              </IconButton>
-            </Stack>
-          </Stack>
-          <Stack bgcolor="white" padding={1} maxHeight={200} overflow="auto">
-            {cal.numbers.map((nums, key) => (
-              <Stack
+          <CallComponent
+            cal={cal}
+            subopen={subopen}
+            key={key}
+            subMember={(e) => subMember(e, key)}
+          />
+          {/* <Stack bgcolor="white" padding={1} maxHeight={200} overflow="auto"> */}
+          {subopen.key === key &&
+            cal.numbers.map((nums, key) => (
+              <Collapse
                 key={key}
-                direction={"row"}
-                justifyContent="space-between"
-                // bgcolor="white"
-                borderBottom={1}
-                borderColor={grey[300]}
+                in={subopen.checked}
+                timeout="auto"
+                unmountOnExit
               >
-                <Typography fontSize={14}>{nums.number}</Typography>
-                <Typography fontSize={14}>{nums.amount}</Typography>
-              </Stack>
+                <Stack
+                  // key={key}
+                  direction={"row"}
+                  justifyContent="space-between"
+                  // bgcolor="white"
+                  borderBottom={1}
+                  borderColor={grey[300]}
+                >
+                  <Typography fontSize={14}>{nums.number}</Typography>
+                  <Typography fontSize={14}>{nums.amount}</Typography>
+                </Stack>
+              </Collapse>
+              // <CallListComponent
+              //   nums={nums}
+              //   subopen={subopen}
+              //   subMember={subMember}
+              //   key={key}
+              // />
             ))}
-          </Stack>
-          <Stack direction={"row"} justifyContent={"flex-end"}>
-            <Typography>Total {cal.totalAmount}</Typography>
-          </Stack>
+          {/* </Stack> */}
+          {/* <Stack direction={"row"} justifyContent={"flex-end"}></Stack> */}
         </Box>
       ))}
     </Stack>
