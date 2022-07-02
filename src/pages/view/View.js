@@ -26,13 +26,11 @@ import { teal } from "@mui/material/colors";
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import Axios from "../../shared/Axios";
-import { DataGrid } from "@mui/x-data-grid";
-import { id } from "date-fns/locale";
 
 const Row = ({ lag, key, selectCheck }) => {
   // const { row } = props;
   const [open, setOpen] = React.useState(false);
-  const { _id, _date, _time, totalAmount, lottery } = lag;
+  const { _id, _date, _time, totalAmount, lottery, commission } = lag;
   const date = new Date(_date);
 
   // console.log(lag.data);
@@ -59,6 +57,7 @@ const Row = ({ lag, key, selectCheck }) => {
           {_id}
         </TableCell>
         <TableCell align="center">{`${date.getDate()}/${date.getMonth()}/${date.getFullYear()}/ ${_time}`}</TableCell>
+        <TableCell align="center">{commission}</TableCell>
         <TableCell align="center">{totalAmount}</TableCell>
 
         <TableCell align="center">
@@ -88,7 +87,6 @@ const View = () => {
       },
     }).then((res) => {
       const data = [...res.data.data];
-      let arr = [];
       setLager(data);
     });
   }, []);
@@ -113,7 +111,19 @@ const View = () => {
   };
   console.log(handleSelect);
   const sentLager = () => {
-    Axios.post("/lagers", handleSelect, {
+    let arr = [];
+    handleSelect.map((hslt) => {
+      let obj = {
+        lottery: hslt.lottery,
+        user: hslt.user,
+        number: hslt.call.length,
+        totalAmount: hslt.totalAmount,
+        commission: hslt.commission,
+        call: hslt.call,
+      };
+      arr.push(obj);
+    });
+    Axios.post("/lagers", arr, {
       headers: {
         authorization: "Bearer " + localStorage.getItem("access-token"),
       },
@@ -159,6 +169,7 @@ const View = () => {
               </TableCell>
               <TableCell>id</TableCell>
               <TableCell align="center">date</TableCell>
+              <TableCell align="center">Commission</TableCell>
               <TableCell align="center">Total</TableCell>
               <TableCell align="center">Action</TableCell>
             </TableRow>
