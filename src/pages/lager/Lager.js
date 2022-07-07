@@ -22,6 +22,7 @@ const Lager = () => {
         authorization: `Bearer ` + localStorage.getItem("access-token"),
       },
     }).then((res) => {
+      console.log(res.data);
       const { _id, _date, _time, totalAmount, call } = res.data.data;
       setLager({
         info: { id: _id, date: _date, time: _time, totalAmount: totalAmount },

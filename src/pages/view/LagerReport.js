@@ -107,7 +107,10 @@ const LagerReport = () => {
                 {lcal.callname}
               </Typography>
               <Typography fontWeight={"bold"} fontSize={12}>
-                Total {lcal.totalAmount}
+                {lcal.commission}
+              </Typography>
+              <Typography fontWeight={"bold"} fontSize={12}>
+                {lcal.totalAmount}
               </Typography>
             </Stack>
             <Stack bgcolor="white" padding={1} maxHeight={200} overflow="auto">

@@ -65,14 +65,14 @@ const Lottery = () => {
                 padding={1}
                 spacing={1}
               >
-                <NavLink
+                {/* <NavLink
                   to={`/reports/agent/${l._id}`}
                   state={{ lotteryId: l._id }}
                 >
                   <IconButton size="small" sx={{ color: "black" }}>
                     <MenuBook fontSize="small" />
                   </IconButton>
-                </NavLink>
+                </NavLink> */}
                 <NavLink to={`/lottery/lager/${l._id}`}>
                   <IconButton size="small" sx={{ color: "black" }}>
                     <Star fontSize="small" />

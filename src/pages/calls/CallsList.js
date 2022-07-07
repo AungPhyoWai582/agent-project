@@ -20,7 +20,12 @@ const CallsList = () => {
   const [call, setCall] = useState([]);
 
   useEffect(() => {
-    Axios.get(`/call/${lotteryId}`).then((res) => {
+    Axios.get(`/call/${lotteryId}`, {
+      headers: {
+        authorization: `Bearer ` + localStorage.getItem("access-token"),
+      },
+    }).then((res) => {
+      console.log(res.data);
       setCall(res.data.data);
     });
   }, []);

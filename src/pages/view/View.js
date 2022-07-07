@@ -21,8 +21,9 @@ import {
   Paper,
   Collapse,
   Box,
+  Tab,
 } from "@mui/material";
-import { teal } from "@mui/material/colors";
+import { common, teal } from "@mui/material/colors";
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import Axios from "../../shared/Axios";
@@ -32,7 +33,7 @@ import { id } from "date-fns/locale";
 const Row = ({ lag, key, selectCheck }) => {
   // const { row } = props;
   const [open, setOpen] = React.useState(false);
-  const { _id, _date, _time, totalAmount, lottery } = lag;
+  const { _id, _date, _time, totalAmount, commission, lottery } = lag;
   const date = new Date(_date);
 
   // console.log(lag.data);
@@ -55,10 +56,11 @@ const Row = ({ lag, key, selectCheck }) => {
             onChange={(e) => selectCheck(e, key)}
           ></Checkbox>
         </TableCell>
-        <TableCell component="th" scope="row">
+        {/* <TableCell component="th" scope="row">
           {_id}
-        </TableCell>
-        <TableCell align="center">{`${date.getDate()}/${date.getMonth()}/${date.getFullYear()}/ ${_time}`}</TableCell>
+        </TableCell> */}
+        <TableCell>{`${date.getDate()}/${date.getMonth()}/${date.getFullYear()}/ ${_time}`}</TableCell>
+        <TableCell align="center">{commission}</TableCell>
         <TableCell align="center">{totalAmount}</TableCell>
 
         <TableCell align="center">
@@ -157,8 +159,9 @@ const View = () => {
                   defaultChecked={true}
                 ></Checkbox>{" "}
               </TableCell>
-              <TableCell>id</TableCell>
-              <TableCell align="center">date</TableCell>
+              {/* <TableCell>id</TableCell> */}
+              <TableCell>date</TableCell>
+              <TableCell align="center">Commission</TableCell>
               <TableCell align="center">Total</TableCell>
               <TableCell align="center">Action</TableCell>
             </TableRow>
