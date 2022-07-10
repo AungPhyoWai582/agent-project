@@ -1,5 +1,6 @@
 import { AccountCircle, ListAlt } from "@mui/icons-material";
 import {
+  Avatar,
   Box,
   Divider,
   Drawer,
@@ -18,9 +19,10 @@ import FormatListNumberedIcon from "@mui/icons-material/FormatListNumbered";
 import CurrencyExchangeIcon from "@mui/icons-material/CurrencyExchange";
 import BuildCircleIcon from "@mui/icons-material/BuildCircle";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import { teal } from "@mui/material/colors";
+import { grey, teal } from "@mui/material/colors";
 
 const SideBarCom = ({ setHandleOpen, handdleopen, name, setAuthUser }) => {
+  // console.log(name);
   const logout = () => {
     console.log("LOGOUT");
     localStorage.removeItem("access-token");
@@ -43,18 +45,20 @@ const SideBarCom = ({ setHandleOpen, handdleopen, name, setAuthUser }) => {
         width={{ xs: 200, md: 400 }}
       >
         <Stack width={"100%"}>
-          <Stack
-            // textAlign={"center"}
-            width={"100%"}
-            height={80}
-            paddingY={1}
-            alignItems={"center"}
-            // alignContent={"center"}
-          >
-            <AccountCircle sx={{ width: 100, height: 50 }} />
-            <Typography variant={"h6"} fontStyle={"-moz-initial"}>
+          <Stack width={"100%"} height={80} bgcolor={grey[300]}>
+            <Avatar
+              sx={{
+                margin: "auto",
+                width: 56,
+                height: 56,
+                fontWeight: "bold",
+                border: 3,
+                color: "green",
+                borderColor: "green",
+              }}
+            >
               {name}
-            </Typography>
+            </Avatar>
           </Stack>
           <Divider />
           <List>

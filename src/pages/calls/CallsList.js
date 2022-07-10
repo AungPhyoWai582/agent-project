@@ -6,6 +6,10 @@ import {
   Stack,
   Typography,
   useScrollTrigger,
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  TextField,
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import react, { useEffect, useState } from "react";
@@ -30,14 +34,14 @@ const CallsList = () => {
     });
   }, []);
 
-  const [subopen, setSubopen] = useState({
-    key: null,
-    checked: null,
-  });
-  const subMember = (e, key) => {
-    setSubopen({ key: key, checked: !subopen.checked });
-  };
-  console.log(subopen);
+  // const [subopen, setSubopen] = useState({
+  //   key: null,
+  //   checked: null,
+  // });
+  // const subMember = (e, key) => {
+  //   setSubopen({ key: key, checked: !subopen.checked });
+  // };
+  // console.log(subopen);
   return (
     <Stack
       width={{ xs: "100%", md: "50%" }}
@@ -49,51 +53,28 @@ const CallsList = () => {
       //   height={"100vh"}
       //   overflow={"scroll"}
     >
+      <TextField
+        size="small"
+        variant="standard"
+        placeholder="search call or id"
+        sx={{ width: "50%", marginBottom: 1 }}
+      />
       {call.map((cal, key) => (
-        <Box
-          key={key}
-          sx={{ backgroundColor: grey[200] }}
-          paddingLeft={1}
-          paddingRight={1}
-          borderRadius={1}
-        >
-          <CallComponent
-            cal={cal}
-            subopen={subopen}
-            key={key}
-            subMember={(e) => subMember(e, key)}
-          />
-          {/* <Stack bgcolor="white" padding={1} maxHeight={200} overflow="auto"> */}
-          {subopen.key === key &&
-            cal.numbers.map((nums, key) => (
-              <Collapse
-                key={key}
-                in={subopen.checked}
-                timeout="auto"
-                unmountOnExit
-              >
-                <Stack
-                  // key={key}
-                  direction={"row"}
-                  justifyContent="space-between"
-                  // bgcolor="white"
-                  borderBottom={1}
-                  borderColor={grey[300]}
-                >
-                  <Typography fontSize={14}>{nums.number}</Typography>
-                  <Typography fontSize={14}>{nums.amount}</Typography>
-                </Stack>
-              </Collapse>
-              // <CallListComponent
-              //   nums={nums}
-              //   subopen={subopen}
-              //   subMember={subMember}
-              //   key={key}
-              // />
-            ))}
-          {/* </Stack> */}
-          {/* <Stack direction={"row"} justifyContent={"flex-end"}></Stack> */}
-        </Box>
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMore />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+          >
+            <CallComponent cal={cal} key={key} />
+          </AccordionSummary>
+          <AccordionDetails sx={{ maxHeight: 200, overflowY: "scroll" }}>
+            {cal.numbers &&
+              cal.numbers.map((nums, key) => (
+                <CallListComponent nums={nums} key={key} />
+              ))}
+          </AccordionDetails>
+        </Accordion>
       ))}
     </Stack>
   );

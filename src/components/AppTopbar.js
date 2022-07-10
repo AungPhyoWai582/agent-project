@@ -41,7 +41,7 @@ const AppTopbar = ({ name, authUser, setAuthUser }) => {
         </AppBar>
       </Box>
       <SideBarCom
-        // name={authUser.user_info.username}
+        name={authUser.user_info.username}
         setHandleOpen={setHandleOpen}
         handdleopen={handdleopen}
         setAuthUser={setAuthUser}

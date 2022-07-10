@@ -5,6 +5,7 @@ import React from "react";
 const CallComponent = ({ subopen, key, cal, subMember }) => {
   return (
     <Stack
+      width={"100%"}
       display={"flex"}
       flexDirection={"row"}
       flexWrap={"wrap"}
@@ -13,15 +14,14 @@ const CallComponent = ({ subopen, key, cal, subMember }) => {
     >
       {/* <Typography width={{ sm: "25%", md: "25%" }}>{cal._id}</Typography> */}
       <Typography
-        width={{ xs: "30%", md: "30%" }}
-        bgcolor={"red"}
+        // width={{ xs: "30%", md: "30%" }}
+        // bgcolor={"red"}
         textAlign={"left"}
       >
-        {key + 1}
+        {cal.callname}
       </Typography>
-      <Typography width={{ xs: "40%", md: "50%" }} bgcolor={"red"}>
-        Total {cal.totalAmount}
-      </Typography>
+      <Typography>{cal.commission}</Typography>
+      <Typography>{cal.totalAmount}</Typography>
       <Stack direction={"row"}>
         <IconButton size="small">
           <Edit fontSize="small" />
@@ -29,9 +29,9 @@ const CallComponent = ({ subopen, key, cal, subMember }) => {
         <IconButton size="small">
           <Delete fontSize="small" />
         </IconButton>
-        <IconButton onClick={subMember}>
+        {/* <IconButton onClick={subMember}>
           {subopen.checked ? <ExpandLess /> : <ExpandMore />}
-        </IconButton>
+        </IconButton> */}
       </Stack>
     </Stack>
   );

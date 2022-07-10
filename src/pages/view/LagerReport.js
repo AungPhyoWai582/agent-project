@@ -1,9 +1,20 @@
-import { VisibilityOutlined } from "@mui/icons-material";
-import { IconButton, Stack, Box, Typography, TextField } from "@mui/material";
+import { ExpandMore, VisibilityOutlined } from "@mui/icons-material";
+import {
+  IconButton,
+  Stack,
+  Box,
+  Typography,
+  TextField,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+} from "@mui/material";
 import { grey, teal } from "@mui/material/colors";
 import React, { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import Axios from "../../shared/Axios";
+import CallComponent from "../calls/CallComponent";
+import CallListComponent from "../calls/CallListComponent";
 
 const LagerReport = () => {
   const { lotteryId } = useParams();
@@ -94,50 +105,22 @@ const LagerReport = () => {
           placeholder="search call or id"
           sx={{ width: "50%", marginBottom: 2 }}
         />
-        {lagerCall.map((lcal) => (
-          <Box
-            // key={key}
-            sx={{ backgroundColor: grey[200] }}
-            paddingLeft={1}
-            paddingRight={1}
-            borderRadius={1}
-          >
-            <Stack direction={"row"} justifyContent={"space-between"}>
-              <Typography fontWeight={"bold"} fontSize={12}>
-                {lcal.callname}
-              </Typography>
-              <Typography fontWeight={"bold"} fontSize={12}>
-                {lcal.commission}
-              </Typography>
-              <Typography fontWeight={"bold"} fontSize={12}>
-                {lcal.totalAmount}
-              </Typography>
-            </Stack>
-            <Stack bgcolor="white" padding={1} maxHeight={200} overflow="auto">
-              {lcal.numbers.map((nums, key) => (
-                <Stack
-                  key={key}
-                  direction={"row"}
-                  justifyContent="space-between"
-                  // bgcolor="white"
-                  borderBottom={1}
-                  borderColor={grey[300]}
-                >
-                  <Typography fontWeight={500} fontSize={14}>
-                    {nums.number}
-                  </Typography>
-                  <Typography fontWeight={700} color={"green"} fontSize={14}>
-                    {nums.amount}
-                  </Typography>
-                </Stack>
-              ))}
-            </Stack>
-            <Stack direction={"row"} justifyContent="space-between">
-              <Typography fontWeight={"bold"} fontSize={12}>
-                {lcal._id}
-              </Typography>
-            </Stack>
-          </Box>
+        {lagerCall.map((lcal, key) => (
+          <Accordion>
+            <AccordionSummary
+              expandIcon={<ExpandMore />}
+              aria-controls="panel1a-content"
+              id="panel1a-header"
+            >
+              <CallComponent cal={lcal} key={key} />
+            </AccordionSummary>
+            <AccordionDetails>
+              {lcal.numbers &&
+                lcal.numbers.map((nums, key) => (
+                  <CallListComponent nums={nums} key={key} />
+                ))}
+            </AccordionDetails>
+          </Accordion>
         ))}
       </Stack>
     </Stack>
