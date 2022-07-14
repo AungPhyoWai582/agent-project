@@ -1,17 +1,25 @@
-import { AccountCircle, ListAlt } from "@mui/icons-material";
+import {
+  AccountCircle,
+  ExpandLess,
+  ExpandMore,
+  ListAlt,
+  StarBorder,
+} from "@mui/icons-material";
 import {
   Avatar,
   Box,
+  Collapse,
   Divider,
   Drawer,
   List,
   ListItem,
+  ListItemButton,
   ListItemIcon,
   ListItemText,
   Stack,
   Typography,
 } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import NoteAddIcon from "@mui/icons-material/NoteAdd";
@@ -32,6 +40,12 @@ const SideBarCom = ({ setHandleOpen, handdleopen, name, setAuthUser }) => {
       authorize: false,
       user_info: {},
     });
+  };
+  //menu sub-menu
+
+  const [subopen, setSubopen] = useState(true);
+  const subMember = () => {
+    setSubopen(!subopen);
   };
   return (
     <Drawer
@@ -87,6 +101,62 @@ const SideBarCom = ({ setHandleOpen, handdleopen, name, setAuthUser }) => {
                 <ListItemText primary="View" />
               </ListItem>
             </NavLink>
+
+            <NavLink
+              style={{ textDecoration: "none" }}
+              to="/customer"
+              onClick={() => setHandleOpen(false)}
+            >
+              <ListItem sx={{ ":hover": { bgcolor: teal[100] } }}>
+                <ListItemIcon>
+                  <ListAlt />
+                </ListItemIcon>
+                <ListItemText primary="Customer" />
+              </ListItem>
+            </NavLink>
+
+            {/* <ListItemButton
+              sx={{ ":hover": { bgcolor: teal[100] } }}
+              onClick={subMember}
+            >
+              <ListItemIcon>
+                <ListAlt />
+              </ListItemIcon>
+              <ListItemText primary="Customer" />
+              {subopen ? <ExpandLess /> : <ExpandMore />}
+            </ListItemButton>
+            <Collapse in={subopen} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                <NavLink
+                  style={{ textDecoration: "none", color: "inherit" }}
+                  to="/member/member_create"
+                  // onClick={() => setToggle(false)}
+                >
+                  <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemIcon>
+                      <StarBorder />
+                    </ListItemIcon>
+
+                    <ListItemText primary="Create" />
+                  </ListItemButton>
+                </NavLink>
+                <NavLink
+                  style={{ textDecoration: "none", color: "inherit" }}
+                  to="/member/member_lists"
+                  // onClick={() => setToggle(false)}
+                >
+                  <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemIcon>
+                      <StarBorder />
+                    </ListItemIcon>
+
+                    <ListItemText primary="List" />
+                  </ListItemButton>
+                </NavLink>
+              </List>
+            </Collapse> */}
+
+            {/*  */}
 
             <NavLink
               style={{ textDecoration: "none" }}

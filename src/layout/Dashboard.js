@@ -15,6 +15,9 @@ import Lager from "../pages/lager/Lager";
 import View from "../pages/view/View";
 import LagerReport from "../pages/view/LagerReport";
 import CallsList from "../pages/calls/CallsList";
+import MemberCreate from "../pages/customer/MemberCreate";
+import MemberList from "../pages/customer/MemberList";
+import Customer from "../pages/customer/Customer";
 
 const Dashboard = () => {
   const [authUser, setAuthUser] = useState({
@@ -60,6 +63,7 @@ const Dashboard = () => {
         path="/account_info"
         element={<AccountInfo authUser={authUser} />}
       />
+      <Route path="/customer" element={<Customer />} />
     </Routes>
   );
   return (
