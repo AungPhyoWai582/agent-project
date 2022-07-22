@@ -93,6 +93,8 @@ const View = () => {
     });
   }, []);
 
+  console.log(lager);
+
   // if (demo.length) {
   //   demo.map((d) => {
   //     setLager({ data: d, select: false });

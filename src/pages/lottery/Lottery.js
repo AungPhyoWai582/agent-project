@@ -73,7 +73,7 @@ const Lottery = () => {
                     <MenuBook fontSize="small" />
                   </IconButton>
                 </NavLink> */}
-                <NavLink to={`/lottery/lager/${l._id}`}>
+                <NavLink to={`/lottery/lager/${l._id}`} state={{ _date: date }}>
                   <IconButton size="small" sx={{ color: "black" }}>
                     <Star fontSize="small" />
                   </IconButton>

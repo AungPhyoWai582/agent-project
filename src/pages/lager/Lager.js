@@ -1,40 +1,36 @@
 import { Stack, Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import Axios from "../../shared/Axios";
 
 const Lager = () => {
   const { lotteryId } = useParams();
+  const location = useLocation();
+  const { _date } = location.state;
+  const date = new Date(_date);
 
-  const [Lager, setLager] = useState({
-    info: {
-      id: "",
-      date: "",
-      time: "",
-      totalAmount: "",
-    },
-    call: [],
-  });
+  const [Lager, setLager] = useState([]);
   useEffect(() => {
-    Axios.get(`/lagers/${lotteryId}`, {
+    Axios.get(`/call/${lotteryId}/lager`, {
       headers: {
         authorization: `Bearer ` + localStorage.getItem("access-token"),
       },
     }).then((res) => {
       console.log(res.data);
-      const { _id, _date, _time, totalAmount, call } = res.data.data;
-      setLager({
-        info: { id: _id, date: _date, time: _time, totalAmount: totalAmount },
-        call: call.map((c) => {
-          return { number: c.number, amount: Number(c.amount) };
-        }),
-      });
+      setLager(res.data);
+      // const { _id, _date, _time, totalAmount, call } = res.data.data;
+      // setLager({
+      //   info: { id: _id, date: _date, time: _time, totalAmount: totalAmount },
+      //   call: call.map((c) => {
+      //     return { number: c.number, amount: Number(c.amount) };
+      //   }),
+      // });
     });
   }, []);
-  console.log(Lager);
-  console.log(Lager.call);
-  const date = new Date(Lager.info.date);
+  // console.log(Lager);
+  // console.log(Lager.call);
+  // const date = new Date(Lager.info.date);
 
   //   const call = Lager.call.map((c) => {
   //     return { number: c.number, amount: Number(c.amount) };
@@ -53,18 +49,16 @@ const Lager = () => {
           <Typography>{Lager.info.id}</Typography>
         </Stack> */}
         <Stack direction={"row"}>
-          <Typography>{`${date.getDate()}/${date.getMonth()}/${date.getFullYear()} ${
-            Lager.info.time
-          }`}</Typography>
+          <Typography>{`${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`}</Typography>
         </Stack>
         <Stack direction={"row"}>
           <Typography>Total &nbsp;</Typography>
-          <Typography> {Lager.info.totalAmount}</Typography>
+          <Typography> {Lager.totalAmount}</Typography>
         </Stack>
       </Stack>
       <Stack direction={"column"} padding={2}>
-        {Lager.call &&
-          Lager.call
+        {Lager.lager &&
+          Lager.lager
             .sort((a, b) => b.amount - a.amount)
             .map((c) => (
               <Stack

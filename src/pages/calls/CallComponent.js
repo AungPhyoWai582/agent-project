@@ -18,7 +18,7 @@ const CallComponent = ({ subopen, key, cal, subMember }) => {
         // bgcolor={"red"}
         textAlign={"left"}
       >
-        {cal.callname}
+        {cal.customer.name}
       </Typography>
       <Typography>{cal.commission}</Typography>
       <Typography>{cal.totalAmount}</Typography>

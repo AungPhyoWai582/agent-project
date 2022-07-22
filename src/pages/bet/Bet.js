@@ -1,6 +1,7 @@
 import { Close } from "@mui/icons-material";
 import {
   Alert,
+  Autocomplete,
   IconButton,
   Paper,
   Stack,
@@ -8,7 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 import { green, red } from "@mui/material/colors";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import BetButtonCom from "../../components/BetButtonCom";
 import BetCom from "../../components/BetCom";
@@ -20,15 +21,37 @@ import Axios from "../../shared/Axios";
 const Bet = ({}) => {
   // const choseFun = useContext(content);
   // console.log(choseFun);
+
+  const [customer, setCustomer] = useState([]);
+  useEffect(() => {
+    Axios.get(`/customer`, {
+      headers: {
+        authorization: `Bearer ` + localStorage.getItem("access-token"),
+      },
+    })
+      .then((res) => {
+        console.log(res.data.customers[0]._id);
+        const { customers } = res.data;
+        if (customers) {
+          setCustomer(res.data.customers);
+
+          setAutoCompleteValue(res.data.customers[0]);
+        }
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  console.log(customer);
+
   const { lotteryId } = useParams();
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
 
   //For twoD sign state
-  const [age, setAge] = useState([]);
+  const [autoCompleteValue, setAutoCompleteValue] = useState();
 
   const [call, setCall] = useState({
-    callname: "",
+    customer: "",
     numbers: [],
   });
 
@@ -60,7 +83,10 @@ const Bet = ({}) => {
       // onchange.number === "0"
       onchange.number.length <= 2
     ) {
-      setCall({ ...call, numbers: [...call.numbers, onchange] });
+      setCall({
+        ...call,
+        numbers: [...call.numbers, onchange],
+      });
       setOnchange({ number: "", amount: onchange.amount });
     } else {
       console.log("error");
@@ -167,11 +193,23 @@ const Bet = ({}) => {
         <BetButtonCom onClick={choice} btnText={"ရွေးမည်"} color={"success"} />
       </Stack>
       <Stack alignItems={"start"} paddingX={{ md: 4 }}>
-        <BetCom
+        {/* <BetCom
           style={{ marginTop: 1 }}
           value={call.callname}
           onChange={(e) => setCall({ ...call, callname: e.target.value })}
           label="အမည်"
+        /> */}
+        <Autocomplete
+          id="combo-box-demo"
+          options={customer}
+          value={autoCompleteValue}
+          getOptionLabel={(cus) => cus.name}
+          sx={{ width: 300 }}
+          onChange={(e, value) => {
+            setAutoCompleteValue(value);
+            setCall({ ...call, customer: value._id });
+          }}
+          renderInput={(params) => <TextField {...params} label="Customer" />}
         />
       </Stack>
       <Stack

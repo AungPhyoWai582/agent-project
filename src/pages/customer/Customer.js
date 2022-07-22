@@ -11,18 +11,41 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import Axios from "../../shared/Axios";
 
 const Customer = () => {
-  //   const [cusCreate, setCusCreate] = useState({});
-  const [cusName, setCusName] = useState({});
+  //getCus
+  const [customer, setCustomer] = useState([]);
+  useEffect(() => {
+    Axios.get(`/customer`, {
+      headers: {
+        authorization: `Bearer ` + localStorage.getItem("access-token"),
+      },
+    }).then((res) => {
+      console.log(res);
+      setCustomer(res.data.customers);
+    });
+  }, []);
+  console.log(customer);
+  const [cusName, setCusName] = useState({ name: "" });
 
   const CustomerCreate = () => {
     console.log(cusName);
-    setOpen(false);
+    console.log(localStorage.getItem("access-token"));
+    Axios.post(`/customer`, cusName, {
+      headers: {
+        authorization: `Bearer ` + localStorage.getItem("access-token"),
+      },
+    })
+      .then((res) => {
+        console.log(res);
+        setOpen(false);
+      })
+      .catch((err) => console.log(err.message));
   };
   //date picker
   const [value, setValue] = React.useState(null);
@@ -70,7 +93,7 @@ const Customer = () => {
               <TextField
                 variant={"outlined"}
                 size={"small"}
-                onChange={(e) => setCusName(e.target.value)}
+                onChange={(e) => setCusName({ name: e.target.value })}
               />
               <Button
                 variant={"contained"}
@@ -85,11 +108,15 @@ const Customer = () => {
       </Stack>
       <Stack padding={1}>
         <Table>
-          <TableRow>
-            <TableCell>Name</TableCell>
-            <TableCell>Total Bet</TableCell>
-            <TableCell>Report</TableCell>
-          </TableRow>
+          {customer.map((cus, key) => {
+            return (
+              <TableRow>
+                <TableCell>{cus.name}</TableCell>
+                <TableCell>Total Bet</TableCell>
+                <TableCell>Report</TableCell>
+              </TableRow>
+            );
+          })}
         </Table>
       </Stack>
     </Stack>

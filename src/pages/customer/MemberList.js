@@ -12,15 +12,6 @@ const MemberList = () => {
       >
         Customer List
       </Typography>
-      <Stack padding={1}>
-        <Table>
-          <TableRow>
-            <TableCell>Name</TableCell>
-            <TableCell>Commission</TableCell>
-            <TableCell>Report</TableCell>
-          </TableRow>
-        </Table>
-      </Stack>
     </Stack>
   );
 };
