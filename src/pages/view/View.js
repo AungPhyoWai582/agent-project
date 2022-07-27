@@ -27,6 +27,7 @@ import { common, teal } from "@mui/material/colors";
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import Axios from "../../shared/Axios";
+import ExportPDFModal from "./ExportPDFModal";
 
 const Row = ({ lag, key, selectCheck }) => {
   // const { row } = props;
@@ -133,6 +134,9 @@ const View = () => {
       },
     }).then((res) => console.log(res.data));
   };
+
+  //pdf
+  const [open, setOpen] = useState(false);
   return (
     <Stack
       width={{ xs: "100%" }}
@@ -143,13 +147,16 @@ const View = () => {
       padding={1}
       // marginX={0}
     >
-      <Stack
-        direction={"row"}
-        spacing={1}
-        padding={2}
-        justifyContent={"space-between"}
-      >
-        <FormControlLabel label={"All"} control={<Checkbox />} />
+      <Stack direction={"row"} spacing={1} padding={2} justifyContent={"end"}>
+        {/* <FormControlLabel label={"All"} control={<Checkbox />} /> */}
+        <Button
+          variant={"contained"}
+          size={"small"}
+          color={"success"}
+          onClick={() => setOpen(true)}
+        >
+          Export Excel
+        </Button>
         <Button
           variant="contained"
           size="small"
@@ -159,7 +166,7 @@ const View = () => {
           Send Lager
         </Button>
       </Stack>
-
+      <ExportPDFModal open={open} setOpen={setOpen} />
       <TableContainer component={Paper}>
         <Table aria-label="collapsible table">
           <TableHead>
