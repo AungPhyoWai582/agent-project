@@ -1,7 +1,8 @@
-import { Close } from "@mui/icons-material";
+import { AddSharp, Close } from "@mui/icons-material";
 import {
   Alert,
   Autocomplete,
+  Button,
   IconButton,
   Paper,
   Stack,
@@ -9,7 +10,9 @@ import {
   Typography,
 } from "@mui/material";
 import { green, red } from "@mui/material/colors";
+import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
+import ReactFileReader from "react-file-reader";
 import { useParams } from "react-router-dom";
 import BetButtonCom from "../../components/BetButtonCom";
 import BetCom from "../../components/BetCom";
@@ -22,26 +25,32 @@ const Bet = ({}) => {
   // const choseFun = useContext(content);
   // console.log(choseFun);
 
-  const [customer, setCustomer] = useState([]);
+  const [agents, setAgents] = useState([]);
   useEffect(() => {
-    Axios.get(`/customer`, {
+    Axios.get(`/agents`, {
       headers: {
         authorization: `Bearer ` + localStorage.getItem("access-token"),
       },
     })
       .then((res) => {
-        console.log(res.data.customers[0]._id);
-        const { customers } = res.data;
-        if (customers) {
-          setCustomer(res.data.customers);
+        console.log(res.data);
+        const agents = res.data.data;
+        console.log(agents);
 
-          setAutoCompleteValue(res.data.customers[0]);
+        if (agents) {
+          setAgents(agents);
+          setAutoCompleteValue(agents[0]);
         }
+        // console.log(res.data.customers[0]._id);
+        // const { customers } = res.data;
+        // if (customers) {
+        //   setCustomer(res.data.customers);
+
+        //   setAutoCompleteValue(res.data.customers[0]);
+        // }
       })
       .catch((err) => console.log(err));
   }, []);
-
-  console.log(customer);
 
   const { lotteryId } = useParams();
   const [success, setSuccess] = useState(false);
@@ -51,7 +60,7 @@ const Bet = ({}) => {
   const [autoCompleteValue, setAutoCompleteValue] = useState();
 
   const [call, setCall] = useState({
-    customer: "",
+    agents: "",
     numbers: [],
   });
 
@@ -91,6 +100,49 @@ const Bet = ({}) => {
     } else {
       console.log("error");
     }
+  };
+
+  const handleFiles = (e) => {
+    // console.log(file.base64);
+    // console.log(file.fileList);
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const text = e.target.result;
+      console.log(text);
+      const cells = text.split("\n").map((el) => el.split(/\s+/));
+      console.log(cells);
+      const headings = cells.shift();
+      // console.log(headings);
+
+      const obj = cells.map((el) => {
+        let data = {};
+        for (let i = 0; i < el.length; i++) {
+          let a = el[i].split(" ");
+          console.log(a[1]);
+        }
+      });
+    };
+
+    reader.readAsText(e.target.files[0]);
+
+    // fetch(file.fileList)
+    //   .then((res) => res.text())
+    //   .then((data) => console.log(data));
+
+    // let resp = await axios.get(file.base64);
+    // let final = await resp.data();
+
+    // console.log(final);
+
+    // setPreview(file.base64);
+    // setUserInfo({ ...userInfo, profile: file.fileList[0] });
+  };
+
+  const readFile = (e) => {
+    e.preventDefault();
+    console.log(e.target.file);
+    console.log(e.target.result);
   };
 
   const bet = (e) => {
@@ -171,6 +223,22 @@ const Bet = ({}) => {
         padding={1}
         spacing={1}
         direction={"row"}
+        justifyContent={"center"}
+        boxShadow={1}
+      >
+        <BetCom name="select" type={"file"} onChange={handleFiles} />
+        {/* <ReactFileReader base64={true} handleFiles={handleFiles}>
+          <BetButtonCom
+            onClick={choice}
+            btnText={"Read File"}
+            color={"secondary"}
+          />
+        </ReactFileReader> */}
+      </Stack>
+      <Stack
+        padding={1}
+        spacing={1}
+        direction={"row"}
         justifyContent={"space-around"}
         boxShadow={1}
       >
@@ -201,13 +269,13 @@ const Bet = ({}) => {
         /> */}
         <Autocomplete
           id="combo-box-demo"
-          options={customer}
+          options={agents}
           value={autoCompleteValue}
           getOptionLabel={(cus) => cus.name}
           sx={{ width: 300 }}
           onChange={(e, value) => {
             setAutoCompleteValue(value);
-            setCall({ ...call, customer: value._id });
+            setCall({ ...call, agents: value._id });
           }}
           renderInput={(params) => <TextField {...params} label="Customer" />}
         />

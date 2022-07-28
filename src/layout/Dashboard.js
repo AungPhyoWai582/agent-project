@@ -27,12 +27,20 @@ const Dashboard = () => {
   });
 
   useEffect(() => {
+    const locs = localStorage.getItem("access-token");
+
     if (localStorage.getItem("access-token")) {
-      setAuthUser({
-        token: localStorage.getItem("access-token"),
-        authorize: true,
-        user_info: JSON.parse(localStorage.getItem("user-info")),
-      });
+      let user = JSON.parse(localStorage.getItem("user-info"));
+      console.log(user);
+      if (user.role === "Master") {
+        setAuthUser({
+          token: localStorage.getItem("access-token"),
+          authorize: true,
+          user_info: JSON.parse(localStorage.getItem("user-info")),
+        });
+      } else {
+        setAuthUser({ token: null, authorize: false, user_info: {} });
+      }
     }
   }, []);
 
